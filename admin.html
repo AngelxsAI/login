@@ -1,231 +1,30 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ANGELXS — Panel Admin</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="stylesheet" href="assets/style.css"/>
-<style>
-/* ── LOGIN PAGE ───────────────────────────────────── */
-.login-page {
-  min-height: 100vh; background: var(--ink);
-  display: flex; align-items: center; justify-content: center; padding: 1.5rem;
-}
-.login-box {
-  background: var(--cream); border-radius: 26px; padding: 3rem 2.5rem;
-  max-width: 420px; width: 100%; text-align: center;
-}
-.login-lock { font-size: 3.2rem; margin-bottom: .5rem; }
-.login-logo { font-size: 2.4rem; font-weight: 700; color: var(--terra); margin-bottom: .3rem; }
-.login-sub  { color: var(--muted); font-size: .88rem; line-height: 1.55; margin-bottom: 2rem; }
-.login-step { display: none; }
-.login-step.active { display: block; }
-.btn-back-txt { background: none; border: none; color: var(--muted); font-size: .85rem; cursor: pointer; margin-top: 1.2rem; text-decoration: underline; font-family: 'DM Sans', sans-serif; }
-.btn-back-txt:hover { color: var(--terra); }
-
-/* ── ADMIN LAYOUT ──────────────────────────────────── */
-.admin-page { min-height: 100vh; background: #F5F0E8; display: none; }
-
-.admin-header {
-  background: var(--ink); color: #fff; padding: 1rem 1.5rem;
-  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-  flex-wrap: wrap; position: sticky; top: 0; z-index: 100;
-  box-shadow: 0 2px 20px rgba(0,0,0,.35);
-}
-.admin-logo { font-size: 1.5rem; font-weight: 700; }
-.admin-logo span { color: var(--gold); }
-.admin-nav { display: flex; gap: .5rem; flex-wrap: wrap; }
-
-/* Tabs */
-.admin-tabs { display: flex; gap: 0; background: #fff; border-bottom: 1px solid var(--border); padding: 0 1.5rem; overflow-x: auto; }
-.admin-tabs::-webkit-scrollbar { display: none; }
-.tab-btn {
-  padding: .9rem 1.3rem; border: none; background: transparent; color: var(--muted);
-  font-size: .9rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent;
-  font-family: 'DM Sans', sans-serif; white-space: nowrap; transition: all var(--transition);
-  display: flex; align-items: center; gap: .4rem;
-}
-.tab-btn:hover { color: var(--ink); }
-.tab-btn.active { color: var(--terra); border-bottom-color: var(--terra); }
-
-.admin-content { padding: 1.5rem; max-width: 960px; margin: 0 auto; }
-.tab-panel { display: none; }
-.tab-panel.active { display: block; }
-
-/* Stats */
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
-.stat-card { background: #fff; border-radius: 14px; padding: 1.3rem 1.5rem; box-shadow: var(--shadow); }
-.stat-label { font-size: .78rem; color: var(--muted); text-transform: uppercase; letter-spacing: .7px; font-weight: 600; margin-bottom: .3rem; }
-.stat-value { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--ink); }
-.stat-value.terra { color: var(--terra); }
-.stat-value.green { color: #1A7A46; }
-
-/* Product list */
-.prod-list-header {
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
-  gap: .8rem; margin-bottom: 1.2rem;
-}
-.prod-list-header h2 { font-size: 1.35rem; }
-.search-admin { padding: .58rem 1rem; border: 1.5px solid var(--border); border-radius: 9px; font-size: .88rem; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color var(--transition); width: 220px; }
-.search-admin:focus { border-color: var(--terra); }
-
-.prod-item {
-  background: #fff; border-radius: 14px; padding: .9rem 1.1rem;
-  display: grid; grid-template-columns: 70px 1fr auto;
-  gap: .9rem; align-items: center; margin-bottom: .7rem;
-  box-shadow: var(--shadow); transition: box-shadow var(--transition);
-}
-.prod-item:hover { box-shadow: var(--shadow-h); }
-.prod-thumb { width: 70px; height: 70px; object-fit: cover; border-radius: 10px; background: var(--tag-bg); display: block; }
-.prod-no-thumb { width: 70px; height: 70px; border-radius: 10px; background: var(--tag-bg); display: flex; align-items: center; justify-content: center; font-size: 2rem; flex-shrink: 0; }
-.prod-info-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: .15rem; }
-.prod-info-cat { font-size: .72rem; color: var(--terra); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-.prod-info-price { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; margin-top: .15rem; }
-.prod-info-desc { font-size: .78rem; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; margin-top: .1rem; }
-.prod-actions { display: flex; flex-direction: column; align-items: flex-end; gap: .45rem; }
-.prod-action-row { display: flex; gap: .4rem; }
-
-/* Form modal */
-.form-modal {
-  background: #fff; border-radius: 22px; padding: 2rem;
-  max-width: 520px; width: 100%; max-height: 92vh; overflow-y: auto;
-}
-.form-modal h3 { font-size: 1.75rem; margin-bottom: 1.5rem; }
-.form-actions { display: flex; gap: .7rem; margin-top: 1.5rem; }
-.btn-save { flex: 1; padding: .9rem; background: var(--terra); color: #fff; border: none; border-radius: 11px; font-size: .95rem; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background var(--transition); display: flex; align-items: center; justify-content: center; gap: .5rem; }
-.btn-save:hover { background: var(--terra-d); }
-.btn-save:disabled { opacity: .55; cursor: default; }
-.btn-cancel { padding: .9rem 1.4rem; background: #F5F0E8; color: var(--muted); border: 1.5px solid var(--border); border-radius: 11px; font-size: .9rem; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600; }
-.btn-cancel:hover { border-color: var(--terra); color: var(--terra); }
-
-/* QR tab */
-.qr-tab-inner { background: #fff; border-radius: 18px; padding: 2.5rem; text-align: center; max-width: 400px; margin: 0 auto; box-shadow: var(--shadow); }
-.qr-tab-inner h3 { font-size: 1.8rem; margin-bottom: .5rem; }
-.qr-tab-inner p { color: var(--muted); font-size: .9rem; margin-bottom: 1.5rem; }
-.qr-big { width: 230px; height: 230px; border-radius: 16px; border: 4px solid var(--border); margin: 0 auto 1.5rem; }
-.copy-row { display: flex; gap: .5rem; }
-.copy-url { flex: 1; padding: .65rem .9rem; border: 1.5px solid var(--border); border-radius: 9px; font-size: .8rem; font-family: 'DM Sans', sans-serif; color: var(--muted); background: var(--cream); outline: none; }
-.copy-btn { background: var(--ink); color: #fff; border: none; padding: .65rem 1.1rem; border-radius: 9px; cursor: pointer; font-size: .84rem; font-weight: 600; white-space: nowrap; font-family: 'DM Sans', sans-serif; transition: background var(--transition); }
-.copy-btn:hover { background: #3A2A18; }
-
-@media (max-width: 600px) {
-  .prod-item { grid-template-columns: 58px 1fr; }
-  .prod-actions { flex-direction: row; align-items: center; grid-column: 1 / -1; }
-  .admin-header { gap: .7rem; }
-  .login-box { padding: 2rem 1.5rem; }
-}
-</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Store</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <main class="admin-container">
+    <h1>💎 Panel de Productos</h1>
 
-<!-- ══════════════ LOGIN ══════════════ -->
-<div class="login-page" id="login-page">
-  <div class="login-box">
-    <div class="login-lock">🔐</div>
-    <div class="login-logo">ANGELXS</div>
-    <p class="login-sub">Panel de administración privado.<br/>Te enviaremos un código a tu correo para verificar tu identidad.</p>
+    <form id="product-form">
+      <input type="text" id="name" placeholder="Nombre del producto" required />
+      <input type="text" id="category" placeholder="Categoría" />
+      <input type="text" id="price" placeholder="Precio" required />
+      <input type="text" id="image_url" placeholder="URL de imagen" />
+      <textarea id="description" placeholder="Descripción"></textarea>
+      <button type="submit">Subir Producto</button>
+    </form>
 
-    <!-- STEP 1: Send OTP -->
-    <div class="login-step active" id="step-1">
-      <button class="btn btn-primary" id="btn-send" style="width:100%;padding:.9rem;font-size:1rem;border-radius:11px;justify-content:center">
-        Enviar código de acceso
-      </button>
-      <div class="msg" id="msg-step1"></div>
-      <br/>
-      <a href="index.html" class="btn-back-txt">← Volver a la tienda</a>
-    </div>
+    <div id="status"></div>
+    <hr/>
+    <h2>Productos existentes</h2>
+    <ul id="products-list"></ul>
+  </main>
 
-    <!-- STEP 2: Enter OTP -->
-    <div class="login-step" id="step-2">
-      <label class="form-lbl" style="text-align:left;display:block;margin-bottom:.4rem">Código de 6 dígitos</label>
-      <input class="inp inp-otp" id="otp-input" type="text" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="one-time-code"/>
-      <button class="btn btn-primary" id="btn-verify" style="width:100%;padding:.9rem;font-size:1rem;border-radius:11px;margin-top:.9rem;justify-content:center" disabled>
-        Verificar acceso
-      </button>
-      <div class="msg" id="msg-step2"></div>
-      <div><button class="btn-back-txt" id="btn-resend">¿No recibiste el código? Reenviar</button></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ ADMIN PANEL ══════════════ -->
-<div class="admin-page" id="admin-page">
-  <header class="admin-header">
-    <div class="admin-logo">ANGELXS <span>●</span> <small style="font-size:.75rem;opacity:.7;font-family:'DM Sans',sans-serif;font-weight:400">Admin</small></div>
-    <div class="admin-nav">
-      <a href="index.html" class="btn btn-ghost" target="_blank">Ver tienda ↗</a>
-      <button class="btn btn-ghost" id="btn-logout">Salir</button>
-    </div>
-  </header>
-
-  <!-- Tabs -->
-  <div class="admin-tabs">
-    <button class="tab-btn active" data-tab="products">📦 Productos</button>
-    <button class="tab-btn" data-tab="stats">📊 Estadísticas</button>
-    <button class="tab-btn" data-tab="share">🔗 Compartir</button>
-  </div>
-
-  <div class="admin-content">
-
-    <!-- ─── PRODUCTS TAB ─── -->
-    <div class="tab-panel active" id="tab-products">
-      <div class="prod-list-header">
-        <h2>Mis productos</h2>
-        <div style="display:flex;gap:.7rem;align-items:center;flex-wrap:wrap">
-          <input class="search-admin" id="admin-search" type="text" placeholder="Buscar…"/>
-          <button class="btn btn-primary" id="btn-new">+ Nuevo producto</button>
-        </div>
-      </div>
-      <div class="page-loader" id="admin-loader"><div class="spinner dark"></div><span>Cargando…</span></div>
-      <div id="admin-list"></div>
-      <div class="empty" id="admin-empty" style="display:none">
-        <div class="empty-icon">📦</div>
-        <h3>Sin productos</h3>
-        <p>Agrega tu primer producto arriba</p>
-      </div>
-    </div>
-
-    <!-- ─── STATS TAB ─── -->
-    <div class="tab-panel" id="tab-stats">
-      <h2 style="margin-bottom:1.2rem">Estadísticas</h2>
-      <div class="stats-grid" id="stats-grid">
-        <div class="stat-card"><div class="stat-label">Total productos</div><div class="stat-value" id="stat-total">—</div></div>
-        <div class="stat-card"><div class="stat-label">Activos</div><div class="stat-value green" id="stat-active">—</div></div>
-        <div class="stat-card"><div class="stat-label">Inactivos</div><div class="stat-value terra" id="stat-inactive">—</div></div>
-        <div class="stat-card"><div class="stat-label">Precio promedio</div><div class="stat-value" id="stat-avg">—</div></div>
-        <div class="stat-card"><div class="stat-label">Precio más bajo</div><div class="stat-value" id="stat-min">—</div></div>
-        <div class="stat-card"><div class="stat-label">Precio más alto</div><div class="stat-value" id="stat-max">—</div></div>
-      </div>
-      <div id="cat-breakdown" style="background:#fff;border-radius:14px;padding:1.5rem;box-shadow:var(--shadow)">
-        <h3 style="font-size:1.3rem;margin-bottom:1rem">Por categoría</h3>
-        <div id="cat-list"></div>
-      </div>
-    </div>
-
-    <!-- ─── SHARE TAB ─── -->
-    <div class="tab-panel" id="tab-share">
-      <div class="qr-tab-inner">
-        <h3>Comparte tu tienda</h3>
-        <p>Usa el QR o el enlace directo para compartir con tus clientes</p>
-        <img id="qr-big" class="qr-big" alt="QR Code"/>
-        <div class="copy-row" style="margin-bottom:1rem">
-          <input class="copy-url" id="share-url" readonly/>
-          <button class="copy-btn" id="copy-share">Copiar enlace</button>
-        </div>
-        <p style="font-size:.8rem;color:var(--muted);margin-top:.5rem">
-          Los clientes pueden escanear el QR o abrir el enlace para ver tus productos
-        </p>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- FORM MODAL -->
-<div id="form-root"></div>
-
-<script src="assets/config.js"></script>
-<script src="assets/admin.js"></script>
+<script src="admin.js"></script>
 </body>
 </html>
