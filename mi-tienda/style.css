@@ -1,0 +1,33 @@
+body {
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+button {
+  background: green;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
