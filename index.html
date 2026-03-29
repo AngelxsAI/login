@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="ANGELXS — Tienda online. Los mejores productos con compra directa por WhatsApp."/>
+<meta property="og:title" content="ANGELXS — Tienda Online"/>
+<meta property="og:description" content="Descubre nuestra colección. Compra fácil por WhatsApp."/>
+<title>ANGELXS — Tienda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1E1208;--cream:#FAF7F0;--terra:#C4622D;--terra-d:#A8521E;
+  --gold:#D4A853;--muted:#8B7060;--bdr:#E0D4C8;--white:#fff;
+  --green:#25D366;--green-d:#1DA851;--tag:#F0E8DC;
+  --sh:0 2px 14px rgba(30,18,8,.08);--sh-h:0 12px 34px rgba(30,18,8,.18);
+  --r:18px;--tr:.22s cubic-bezier(.4,0,.2,1);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',serif}
+img{display:block;max-width:100%}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--cream)}::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
+
+/* HEADER */
+.hdr{background:var(--ink);color:var(--cream);padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:0 2px 24px rgba(0,0,0,.4)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;letter-spacing:4px;cursor:default;user-select:none;line-height:1}
+.logo em{color:var(--gold);font-style:normal}
+.btn-ghost{display:flex;align-items:center;gap:.4rem;padding:.45rem .9rem;border-radius:50px;border:1.5px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all var(--tr);white-space:nowrap}
+.btn-ghost:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.38)}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--ink) 0%,#3A2218 100%);color:var(--cream);padding:3rem 1.5rem;text-align:center;overflow:hidden;position:relative}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(212,168,83,.14),transparent 70%);pointer-events:none}
+.hero h2{font-size:clamp(1.9rem,5vw,3rem);font-weight:700;position:relative;line-height:1.15}
+.hero p{color:rgba(250,247,240,.6);margin-top:.5rem;font-size:.95rem;position:relative}
+
+/* CATS */
+.cats{display:flex;gap:.5rem;padding:.9rem 1.5rem;overflow-x:auto;background:var(--white);border-bottom:1px solid var(--bdr);position:sticky;top:56px;z-index:100;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{padding:.38rem 1.05rem;border-radius:50px;border:1.5px solid var(--terra);background:transparent;color:var(--terra);font-size:.82rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all var(--tr);font-family:'DM Sans',sans-serif}
+.cat.on,.cat:hover{background:var(--terra);color:#fff}
+
+/* SEARCH */
+.srch{padding:.9rem 1.5rem;background:var(--cream);display:flex;align-items:center;gap:.7rem;border-bottom:1px solid var(--bdr)}
+.sw{position:relative;flex:1}
+.si{position:absolute;left:.85rem;top:50%;transform:translateY(-50%);opacity:.38;pointer-events:none}
+.sinp{width:100%;padding:.6rem 1rem .6rem 2.5rem;border:1.5px solid var(--bdr);border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.9rem;background:var(--white);outline:none;transition:border-color var(--tr)}
+.sinp:focus{border-color:var(--terra)}
+.cnt{font-size:.82rem;color:var(--muted);white-space:nowrap}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.4rem;padding:1.8rem 1.5rem;max-width:1400px;margin:0 auto}
+
+/* CARD */
+.card{background:var(--white);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:transform var(--tr),box-shadow var(--tr);box-shadow:var(--sh)}
+.card:hover{transform:translateY(-5px);box-shadow:var(--sh-h)}
+.cmedia{height:230px;overflow:hidden;background:var(--tag);position:relative}
+.cimg{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+.card:hover .cimg{transform:scale(1.06)}
+.cno{height:230px;background:linear-gradient(135deg,var(--tag),#E8D9C8);display:flex;align-items:center;justify-content:center;font-size:4.5rem}
+.cbadge{position:absolute;top:.7rem;left:.7rem;background:rgba(30,18,8,.65);color:#fff;padding:.18rem .65rem;border-radius:50px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;backdrop-filter:blur(6px)}
+.cbody{padding:1.1rem}
+.ccat{font-size:.7rem;color:var(--terra);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:.3rem}
+.cname{font-family:'Cormorant Garamond',serif;font-size:1.22rem;font-weight:700;line-height:1.25;margin-bottom:.4rem}
+.cdesc{font-size:.82rem;color:var(--muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.45rem;margin-bottom:.9rem}
+.cfoot{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.cprice{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700}
+.btnwa{display:flex;align-items:center;gap:.38rem;padding:.48rem .95rem;border-radius:50px;border:none;background:var(--green);color:#fff;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all var(--tr)}
+.btnwa:hover{background:var(--green-d);transform:scale(1.04)}
+
+/* LOADER / EMPTY */
+.ldr{display:flex;align-items:center;justify-content:center;gap:1rem;padding:5rem;color:var(--muted)}
+.ldr span{font-family:'Cormorant Garamond',serif;font-size:1.2rem}
+.sp{display:inline-block;width:22px;height:22px;border:2.5px solid rgba(196,98,45,.2);border-top-color:var(--terra);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty{text-align:center;padding:5rem 1.5rem}
+.empty-ico{font-size:4.5rem;margin-bottom:1rem;opacity:.55}
+.empty h3{font-size:1.8rem;color:var(--muted);margin-bottom:.4rem}
+.empty p{color:var(--bdr);font-size:.88rem}
+
+/* OVERLAY/MODAL */
+.ov{position:fixed;inset:0;background:rgba(10,5,2,.72);z-index:500;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px);animation:fi .2s ease}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+.modal{background:var(--white);border-radius:22px;max-width:580px;width:100%;max-height:92vh;overflow-y:auto;position:relative;animation:up .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes up{from{transform:translateY(28px);opacity:0}to{transform:none;opacity:1}}
+.mx{position:absolute;top:.9rem;right:.9rem;z-index:10;width:36px;height:36px;border-radius:50%;border:none;background:rgba(0,0,0,.52);color:#fff;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background var(--tr)}
+.mx:hover{background:rgba(0,0,0,.82)}
+.mmedia{height:310px;overflow:hidden;background:var(--tag)}
+.mmedia img{width:100%;height:100%;object-fit:cover}
+.mno{height:290px;background:linear-gradient(135deg,var(--tag),#E8D9C8);display:flex;align-items:center;justify-content:center;font-size:8rem}
+.mbody{padding:2rem}
+.mcat{font-size:.75rem;color:var(--terra);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:.4rem}
+.mname{font-size:2.2rem;font-weight:700;line-height:1.2;margin-bottom:.6rem}
+.mprice{font-size:2rem;color:var(--terra);font-weight:700;margin-bottom:1.2rem}
+.mdesc{color:var(--muted);line-height:1.8;margin-bottom:1.8rem;font-size:.95rem}
+.btnwaf{width:100%;padding:1rem;font-size:1.05rem;font-family:'DM Sans',sans-serif;font-weight:700;border:none;cursor:pointer;background:var(--green);color:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:.65rem;transition:all var(--tr)}
+.btnwaf:hover{background:var(--green-d)}
+
+/* QR */
+.qrbox{background:var(--cream);border-radius:22px;padding:2.5rem 2rem;text-align:center;max-width:340px;width:100%}
+.qrbox h3{font-size:1.9rem;margin-bottom:.4rem}
+.qrbox p{color:var(--muted);font-size:.88rem;margin-bottom:1.5rem}
+.qrimg{width:215px;height:215px;border-radius:14px;border:4px solid var(--bdr);margin:0 auto 1.4rem}
+.crow{display:flex;gap:.5rem}
+.curl{flex:1;padding:.62rem .9rem;border:1.5px solid var(--bdr);border-radius:9px;font-size:.78rem;font-family:'DM Sans',sans-serif;color:var(--muted);background:var(--white);outline:none}
+.cbtn{background:var(--ink);color:#fff;border:none;padding:.62rem 1rem;border-radius:9px;cursor:pointer;font-size:.82rem;font-weight:600;white-space:nowrap;font-family:'DM Sans',sans-serif;transition:background var(--tr)}
+.cbtn:hover{background:#3A2218}
+.qrcl{width:100%;margin-top:1rem;padding:.72rem;background:transparent;border:1.5px solid var(--bdr);border-radius:11px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;color:var(--muted);transition:all var(--tr)}
+.qrcl:hover{border-color:var(--terra);color:var(--terra)}
+
+/* FOOTER */
+.ftr{text-align:center;padding:2.5rem 1.5rem;color:var(--muted);font-size:.82rem;border-top:1px solid var(--bdr);margin-top:1rem}
+.ftr strong{color:var(--terra)}
+
+@media(max-width:600px){
+  .grid{grid-template-columns:repeat(2,1fr);gap:.75rem;padding:.9rem}
+  .cmedia,.cno{height:170px}
+  .cbody{padding:.75rem}
+  .cname{font-size:1rem}
+  .cprice{font-size:1.2rem}
+  .hero{padding:2rem 1rem}
+  .srch{padding:.7rem 1rem}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="logo" id="logo">ANGELXS <em>●</em></div>
+  <button class="btn-ghost" id="btn-share">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+    Compartir
+  </button>
+</header>
+
+<section class="hero">
+  <h2>Descubre nuestra colección</h2>
+  <p>Los mejores productos — compra fácil y rápido por WhatsApp</p>
+</section>
+
+<nav class="cats" id="cats"></nav>
+
+<div class="srch">
+  <div class="sw">
+    <svg class="si" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input class="sinp" id="search" type="search" placeholder="Buscar productos…"/>
+  </div>
+  <span class="cnt" id="cnt"></span>
+</div>
+
+<main>
+  <div class="ldr" id="ldr"><div class="sp"></div><span>Cargando productos…</span></div>
+  <div class="grid" id="grid" style="display:none"></div>
+  <div class="empty" id="empty" style="display:none"><div class="empty-ico">🛍️</div><h3>Sin resultados</h3><p>Prueba otra categoría o búsqueda</p></div>
+</main>
+
+<footer class="ftr">© 2025 <strong>ANGELXS</strong> · Todos los derechos reservados · Compra segura vía WhatsApp</footer>
+<div id="mr"></div>
+
+<script>
+const SB="https://yjoxhucajvefzuxlqkkg.supabase.co",
+KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlqb3hodWNhanZlZnp1eGxxa2tnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MjcyNjQsImV4cCI6MjA5MDMwMzI2NH0.jMOBpuZi6LWgga8Uy8SlnePO-ikJdvbaCX9srGJYSl4",
+WA="50375153192",SITE="https://angelxs-tienda.netlify.app",
+EMO={General:"📦",Ropa:"👗",Calzado:"👟","Electrónica":"📱",Hogar:"🏠",Accesorios:"💎",Belleza:"💄",Otros:"✨"};
+let all=[],cat="Todos",q="",tapN=0,tapT=null;
+
+document.addEventListener("DOMContentLoaded",()=>{
+  load();
+  document.getElementById("search").addEventListener("input",e=>{q=e.target.value.toLowerCase();draw()});
+  document.getElementById("btn-share").addEventListener("click",qrModal);
+  document.getElementById("logo").addEventListener("click",()=>{tapN++;clearTimeout(tapT);tapT=setTimeout(()=>tapN=0,3000);if(tapN>=5){tapN=0;location.href="admin.html"}});
+});
+
+async function load(){
+  try{const r=await fetch(`${SB}/rest/v1/products?select=*&active=eq.true&order=created_at.desc`,{headers:{apikey:KEY,Authorization:`Bearer ${KEY}`}});const d=await r.json();all=Array.isArray(d)?d:[];}catch(e){all=[]}
+  buildCats();draw();
+  document.getElementById("ldr").style.display="none";
+  document.getElementById("grid").style.display="";
+}
+
+function buildCats(){
+  const cs=["Todos",...new Set(all.map(p=>p.category||"General"))];
+  const el=document.getElementById("cats");
+  el.innerHTML=cs.map(c=>`<button class="cat${c===cat?" on":""}" data-c="${e(c)}">${c==="Todos"?"✦ Todos":c}</button>`).join("");
+  el.querySelectorAll(".cat").forEach(b=>b.addEventListener("click",()=>{cat=b.dataset.c;el.querySelectorAll(".cat").forEach(x=>x.classList.remove("on"));b.classList.add("on");draw()}));
+}
+
+function draw(){
+  let f=cat==="Todos"?all:all.filter(p=>(p.category||"General")===cat);
+  if(q)f=f.filter(p=>p.name.toLowerCase().includes(q)||(p.description||"").toLowerCase().includes(q));
+  const g=document.getElementById("grid"),em=document.getElementById("empty"),cn=document.getElementById("cnt");
+  cn.textContent=f.length?`${f.length} producto${f.length!==1?"s":""}` :"";
+  if(!f.length){g.style.display="none";em.style.display="";return}
+  em.style.display="none";g.style.display="";
+  g.innerHTML=f.map(p=>{const em2=EMO[p.category]||"📦";return`
+  <article class="card" data-id="${p.id}">
+    ${p.image_url?`<div class="cmedia"><img class="cimg" src="${p.image_url}" alt="${e(p.name)}" loading="lazy"/><span class="cbadge">${e(p.category||"General")}</span></div>`:`<div class="cno">${em2}</div>`}
+    <div class="cbody">
+      <div class="ccat">${e(p.category||"General")}</div>
+      <div class="cname">${e(p.name)}</div>
+      <div class="cdesc">${e(p.description||"Toca para ver detalles")}</div>
+      <div class="cfoot"><span class="cprice">${fmt(p.price)}</span><button class="btnwa">${waico(15)} Comprar</button></div>
+    </div>
+  </article>`}).join("");
+  g.querySelectorAll(".card").forEach(c=>{
+    c.addEventListener("click",ev=>{if(ev.target.closest(".btnwa"))return;const p=all.find(x=>x.id==c.dataset.id);if(p)prodModal(p)});
+    c.querySelector(".btnwa").addEventListener("click",ev=>{ev.stopPropagation();const p=all.find(x=>x.id==c.dataset.id);if(p)goWA(p)});
+  });
+}
+
+function prodModal(p){
+  const em=EMO[p.category]||"📦";
+  document.getElementById("mr").innerHTML=`
+  <div class="ov" id="ov1"><div class="modal"><button class="mx" id="mx1">✕</button>
+    <div class="mmedia">${p.image_url?`<img src="${p.image_url}" alt="${e(p.name)}"/>`:`<div class="mno">${em}</div>`}</div>
+    <div class="mbody">
+      <div class="mcat">${e(p.category||"General")}</div>
+      <h2 class="mname">${e(p.name)}</h2>
+      <div class="mprice">${fmt(p.price)}</div>
+      ${p.description?`<p class="mdesc">${e(p.description)}</p>`:""}
+      <button class="btnwaf" id="bwaf">${waico(22)} Escribir por WhatsApp</button>
+    </div>
+  </div></div>`;
+  const cl=()=>{document.getElementById("mr").innerHTML="";document.removeEventListener("keydown",kh)};
+  document.getElementById("mx1").onclick=cl;
+  document.getElementById("ov1").onclick=ev=>{if(ev.target===ev.currentTarget)cl()};
+  document.getElementById("bwaf").onclick=()=>goWA(p);
+  const kh=ev=>{if(ev.key==="Escape")cl()};document.addEventListener("keydown",kh);
+}
+
+function qrModal(){
+  const qr=`https://api.qrserver.com/v1/create-qr-code/?size=215x215&bgcolor=FAF7F0&color=1E1208&data=${encodeURIComponent(SITE)}`;
+  document.getElementById("mr").innerHTML=`
+  <div class="ov" id="ov2"><div class="qrbox">
+    <h3>Compartir tienda</h3><p>Escanea el QR o copia el enlace</p>
+    <img class="qrimg" src="${qr}" alt="QR"/>
+    <div class="crow"><input class="curl" id="curi" value="${SITE}" readonly/><button class="cbtn" id="cbtn">Copiar</button></div>
+    <button class="qrcl" id="qrcl">Cerrar</button>
+  </div></div>`;
+  const cl=()=>document.getElementById("mr").innerHTML="";
+  document.getElementById("qrcl").onclick=cl;
+  document.getElementById("ov2").onclick=ev=>{if(ev.target===ev.currentTarget)cl()};
+  document.getElementById("cbtn").onclick=()=>{navigator.clipboard.writeText(SITE).then(()=>{const b=document.getElementById("cbtn");b.textContent="¡Copiado!";setTimeout(()=>b.textContent="Copiar",2000)})};
+}
+
+function goWA(p){window.open(`https://wa.me/${WA}?text=${encodeURIComponent(`¡Hola! Me interesa comprar:\n\n*${p.name}*\nPrecio: ${fmt(p.price)}\n\n¿Está disponible?`)}`,"_blank")}
+function fmt(n){return`$${Number(n).toFixed(2)}`}
+function e(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function waico(s){return`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`}
+</script>
+</body>
+</html>
