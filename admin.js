@@ -3,7 +3,7 @@
 // ═══════════════════════════════════════════════
 
 const API_URL = "https://tu-proyecto.supabase.co/rest/v1/products";
-const API_KEY = "TU_SUPABASE_ADMIN_KEY"; // <- PON TU KEY AQUÍ
+const API_KEY = "sb_publishable_w1jfAZjx1Y9PM2hJpbdamQ_Mv0O7dCY"; 
 
 const form = document.getElementById("product-form");
 const statusDiv = document.getElementById("status");
